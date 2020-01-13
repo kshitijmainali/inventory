@@ -11,7 +11,7 @@ exports.googleRedirect = (req, res) => {
       massage: 'new user created successfully',
       user: req.user
     }
-  });
+  }); 
 };
 
 exports.logInFacebook = passport.authenticate('facebook');
@@ -23,5 +23,5 @@ exports.facebookRedirect = (req, res) => {
       massage: 'new user created successfully',
       user: req.user
     }
-  });
+  });pac
 };
