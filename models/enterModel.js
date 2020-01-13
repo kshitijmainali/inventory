@@ -15,12 +15,14 @@ const inputSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'product must have an amount']
   },
-  parId: {
+  catId: {
     type: String,
     default: null
   }
 });
 
 const Data = mongoose.model('product', inputSchema);
+const PurModel = mongoose.model('entryHistory', inputSchema);
+const SellModel = mongoose.model('sellHistory', inputSchema);
 
-module.exports = Data;
+module.exports = [Data, PurModel, SellModel];
