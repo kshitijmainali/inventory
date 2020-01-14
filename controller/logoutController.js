@@ -1,5 +1,5 @@
 exports.logOutu = (req, res) => {
-  console.log(req.user);
-  req.logout();
-  res.redirect('/');
+	console.log(req.user);
+	req.logout();
+	res.redirect('/');
 };

@@ -1,15 +1,9 @@
 const express = require('express');
-const productController = require('../controller/productController');
+const productsController = require('../controller/productsController');
 
 const Route = express.Router();
 
-Route.route('/')
-  .get(productController.getProduct)
-  .post(productController.createEntry);
-Route.route('/:id')
-  .patch(productController.update)
-  .delete(productController.delete);
-Route.route('');
-// Route.route('/update').;
+Route.route('/').get(productsController.get).post(productsController.store);
+Route.route('/').patch(productsController.update).delete(productsController.destroy);
 
 module.exports = Route;
