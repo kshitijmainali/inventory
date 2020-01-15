@@ -8,7 +8,7 @@ exports.googleRedirect = (req, res) => {
 	res.status(201).json({
 		status: 'success',
 		data: {
-			massage: 'new user created successfully',
+			message: 'new user created successfully',
 			user: req.user,
 		},
 	});
@@ -20,7 +20,7 @@ exports.facebookRedirect = (req, res) => {
 	res.status(201).json({
 		status: 'success',
 		data: {
-			massage: 'new user created successfully',
+			message: 'new user created successfully',
 			user: req.user,
 		},
 	});

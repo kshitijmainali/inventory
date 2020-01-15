@@ -4,7 +4,7 @@ const Category = require('../models/Category');
 // get all the data
 const get = async (req, res) => {
 	try {
-		const data = await Category.find({});
+		const data = await Category.find({}).populate('parentCategory');
 		// lets send array of objects directly for convinent in frontend
 		res.status(200).json({ data });
 	} catch (err) {
@@ -40,12 +40,12 @@ const update = async (req, res) => {
 			runValidators: true,
 		});
 		res.status(200).json({
-			massage: 'success',
+			message: 'success',
 			data: newUpdate,
 		});
 	} catch (err) {
 		res.status(500).json({
-			massage: 'error',
+			message: 'error',
 			err,
 		});
 	}
@@ -55,7 +55,10 @@ const destroy = async (req, res) => {
 	try {
 		// eslint-disable-next-line no-unused-vars
 		const deletedData = await Category.findByIdAndRemove(req.params.id);
-		res.redirect('/');
+		res.status(200).json({
+			message: 'success',
+			data: deletedData,
+		});
 	} catch (err) {
 		console.log(err);
 	}

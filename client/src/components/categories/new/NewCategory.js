@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+const { isEmpty } = require('../../../helpers');
 
 function NewCategory() {
 	const [ name, setName ] = useState('');
-	const [ parentId, setParentId ] = useState('');
+	const [ parentId, setParentId ] = useState(0);
 	const [ categories, setCategories ] = useState([ {} ]);
 
 	// componentdidmount hooks
 	useEffect(() => {
 		axios.get('/api/v1/categories/').then((res) => {
-			console.log(res.data);
-			setCategories(res.data);
+			const { data } = res.data;
+			setCategories(data);
 		});
 	}, []);
 
 	const handleName = (e) => {
 		setName(e.target.value);
-		console.log(e.target.value);
 	};
 
 	const handleSelect = (e) => {
@@ -27,15 +27,21 @@ function NewCategory() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const parentCategory = parentId ? parentId : null;
-		const newCategory = {
-			name,
-			parentCategory,
-		};
-		axios.post('/api/v1/categories', newCategory).then((res) => {
-			setCategories((prevCategories) => [ ...prevCategories, res.data.newData ]);
-			setName('');
-		});
+		// check empty
+		if (!(isEmpty(name) || isEmpty(parentId))) {
+			const parentCategory = parentId ? parentId : null;
+			const newCategory = {
+				name,
+				parentCategory,
+			};
+			axios.post('/api/v1/categories', newCategory).then((res) => {
+				setCategories((prevCategories) => [ ...prevCategories, res.data.data ]);
+				setName('');
+			});
+		} else {
+			// somefield is empty
+			console.log('there is some empty field');
+		}
 	};
 
 	const renderOptions = () => {
@@ -53,7 +59,7 @@ function NewCategory() {
 				<div className='card-header py-3' style={{ position: 'relative' }}>
 					<h6 className='m-0 font-weight-bold text-primary'>You can add new Category</h6>
 					<button type='button' className='btn btn-primary float-right' style={{ marginTop: '-28px' }}>
-						<i className='fa fa-plus' style={{ padding: '5px' }} />
+						<i className='far fa-eye' style={{ padding: '5px' }} />
 						<Link style={{ textDecoration: 'none', color: 'white' }} to='/categories'>
 							View All Categories
 						</Link>

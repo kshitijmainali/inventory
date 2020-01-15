@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 // get all the Product
 const get = async (req, res) => {
 	try {
-		const data = await Product.find({});
+		const data = await Product.find({}).populate('category');
 		res.status(200).json({
 			data,
 		});
@@ -19,6 +19,8 @@ const get = async (req, res) => {
 // store new product
 const store = async (req, res) => {
 	try {
+		req.body.price = parseInt(req.body.price);
+		req.body.quantity = parseInt(req.body.quantity);
 		console.log(req.body);
 		const newData = await Product.create(req.body);
 		res.status(201).json({
@@ -33,20 +35,39 @@ const store = async (req, res) => {
 	}
 };
 
+// get single Product
+const show = async (req, res) => {
+	try {
+		const data = await Product.find({ _id: req.params.id });
+		res.status(200).json({
+			message: 'success',
+			data,
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'failed',
+			err,
+		});
+	}
+};
+
 // update product
 const update = async (req, res) => {
 	try {
+		console.log(req.body);
+		req.body.price = parseInt(req.body.price);
+		req.body.quantity = parseInt(req.body.quantity);
 		const newUpdate = await Product.findByIdAndUpdate(req.params.id, req.body, {
 			new: true,
 			runValidators: true,
 		});
 		res.status(200).json({
-			massage: 'success',
+			message: 'success',
 			data: newUpdate,
 		});
 	} catch (err) {
 		res.status(500).json({
-			massage: 'error',
+			message: 'error',
 			err,
 		});
 	}
@@ -63,6 +84,7 @@ const destroy = async (req, res) => {
 const productsController = {
 	get,
 	store,
+	show,
 	update,
 	destroy,
 };
@@ -100,7 +122,7 @@ module.exports = productsController;
 // 		} catch (err) {
 // 			res.status(500).json({
 // 				status: 'error',
-// 				massage: err.message,
+// 				message: err.message,
 // 			});
 // 		}
 // 	}
@@ -113,14 +135,14 @@ module.exports = productsController;
 // 				runValidators: true,
 // 			});
 // 			res.status(200).json({
-// 				massage: 'success',
+// 				message: 'success',
 // 				data: {
 // 					newUpdate,
 // 				},
 // 			});
 // 		} catch (err) {
 // 			res.status(500).json({
-// 				massage: 'error',
+// 				message: 'error',
 // 				err,
 // 			});
 // 		}

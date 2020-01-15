@@ -40,12 +40,12 @@ const update = async (req, res) => {
 			runValidators: true,
 		});
 		res.status(200).json({
-			massage: 'success',
+			message: 'success',
 			data: newUpdate,
 		});
 	} catch (err) {
 		res.status(500).json({
-			massage: 'error',
+			message: 'error',
 			err,
 		});
 	}
