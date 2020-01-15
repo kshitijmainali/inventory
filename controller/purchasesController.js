@@ -22,9 +22,7 @@ const store = async (req, res) => {
 		const newData = await Purchase.create(req.body);
 		res.status(201).json({
 			status: 'success',
-			data: {
-				newData,
-			},
+			data: newData,
 		});
 	} catch (err) {
 		res.status(500).json({
@@ -43,9 +41,7 @@ const update = async (req, res) => {
 		});
 		res.status(200).json({
 			massage: 'success',
-			data: {
-				newUpdate,
-			},
+			data: newUpdate,
 		});
 	} catch (err) {
 		res.status(500).json({

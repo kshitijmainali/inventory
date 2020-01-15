@@ -5,9 +5,8 @@ const Category = require('../models/Category');
 const get = async (req, res) => {
 	try {
 		const data = await Category.find({});
-		res.status(200).json({
-			data,
-		});
+		// lets send array of objects directly for convinent in frontend
+		res.status(200).json({ data });
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
@@ -20,16 +19,15 @@ const get = async (req, res) => {
 const store = async (req, res) => {
 	try {
 		const newData = await Category.create(req.body);
+		// lets send newData directly for convinent in frontend
 		res.status(201).json({
 			status: 'success',
-			data: {
-				newData,
-			},
+			data: newData,
 		});
 	} catch (err) {
 		res.status(500).json({
 			status: 'error',
-			massage: err.message,
+			message: err.message,
 		});
 	}
 };
@@ -43,9 +41,7 @@ const update = async (req, res) => {
 		});
 		res.status(200).json({
 			massage: 'success',
-			data: {
-				newUpdate,
-			},
+			data: newUpdate,
 		});
 	} catch (err) {
 		res.status(500).json({

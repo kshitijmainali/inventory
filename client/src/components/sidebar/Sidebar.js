@@ -11,20 +11,20 @@ class Sidebar extends Component {
 				label: 'Categories',
 				icon: 'fas fa-fw fa-cog',
 				items: [
-					{ id: 'category1', label: 'Category 1', link: '/' },
-					{ id: 'category2', label: 'Category 2', link: '/' }
-				]
+					{ id: 'addNewCat', label: 'Add New Category', link: '/categories/new' },
+					{ id: 'viewAllCat', label: 'View all Categories', link: '/categories' },
+				],
 			},
 			{
-				id: 'operations',
-				label: 'Operations',
+				id: 'products',
+				label: 'Products',
 				icon: 'fas fa-fw fa-wrench',
 				items: [
-					{ id: 'addNewItem', label: 'Add New Item', link: '/stocks/new' },
-					{ id: 'removeAItem', label: 'Remove a Item', link: '/stocks/remove' }
-				]
-			}
-		]
+					{ id: 'addNewProduct', label: 'Add New Product', link: '/stocks/new' },
+					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' },
+				],
+			},
+		],
 	};
 	handleClick = () => {
 		this.setState({ click: !this.state.click });
@@ -33,48 +33,48 @@ class Sidebar extends Component {
 		return (
 			<div>
 				{/* Sidebar */}
-				<ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+				<ul className='navbar-nav bg-gradient-primary sidebar sidebar-dark accordion' id='accordionSidebar'>
 					{/* Sidebar - Brand */}
-					<Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
-						<div className="sidebar-brand-icon rotate-n-15">
-							<i className="fas fa-laugh-wink" />
+					<Link className='sidebar-brand d-flex align-items-center justify-content-center' to='/'>
+						<div className='sidebar-brand-icon rotate-n-15'>
+							<i className='fas fa-laugh-wink' />
 						</div>
-						<div className="sidebar-brand-text mx-3">Hello Inventory </div>
+						<div className='sidebar-brand-text mx-3'>Hello Inventory </div>
 					</Link>
 					{/* Divider */}
-					<hr className="sidebar-divider my-0" />
+					<hr className='sidebar-divider my-0' />
 					{/* Nav Item - Dashboard */}
-					<li className="nav-item active">
-						<Link className="nav-link" to="/">
-							<i className="fas fa-fw fa-tachometer-alt" />
+					<li className='nav-item active'>
+						<Link className='nav-link' to='/'>
+							<i className='fas fa-fw fa-tachometer-alt' />
 							<span>Dashboard</span>
 						</Link>
 					</li>
 					{/* Divider */}
-					<hr className="sidebar-divider" />
+					<hr className='sidebar-divider' />
 					{/* Nav Item - Pages Collapse Menu */}
 					<SidebarItem items={this.state.items} />
 					{/* Nav Item - Utilities Collapse Menu */}
-					<hr className="sidebar-divider my-0" />
-					<div className="sidebar-heading">Stock Details</div>
-					<li className="nav-item">
+					<hr className='sidebar-divider my-0' />
+					<div className='sidebar-heading'>Stock Details</div>
+					<li className='nav-item'>
 						<Link
-							className="nav-link collapsed"
-							to="/stocks"
+							className='nav-link collapsed'
+							to='/stocks'
 							data-toggle
-							data-target="#"
-							aria-expanded="true"
-							aria-controls="collapseUtilities"
+							data-target='#'
+							aria-expanded='true'
+							aria-controls='collapseUtilities'
 						>
-							<i className="fa fa-shopping-cart" />
+							<i className='fa fa-shopping-cart' />
 							<span>In Stock</span>
 						</Link>
 					</li>
 					{/* Divider */}
-					<hr className="sidebar-divider" />
+					<hr className='sidebar-divider' />
 					{/* Sidebar Toggler (Sidebar) */}
-					<div className="text-center d-none d-md-inline">
-						<button className="rounded-circle border-0" id="sidebarToggle" />
+					<div className='text-center d-none d-md-inline'>
+						<button className='rounded-circle border-0' id='sidebarToggle' />
 					</div>
 				</ul>
 				{/* End of Sidebar */}
