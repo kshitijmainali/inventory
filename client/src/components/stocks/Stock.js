@@ -55,8 +55,8 @@ class Stock extends Component {
 					width: 150,
 				},
 				{
-					label: 'Rate',
-					field: 'rate',
+					label: 'Price',
+					field: 'price',
 					sort: 'asc',
 					width: 150,
 				},
@@ -129,7 +129,7 @@ class Stock extends Component {
 			<div>
 				{/* DataTales Example */}
 				<div className='card shadow mb-4'>
-					<StockHeader checkRemoveBtn={this.checkRemoveBtn} />
+					<StockHeader history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
 					<div className='card-body'>
 						{this.state.loading ? '' : <MDBDataTable striped bordered hover data={this.state.data} />}
 					</div>

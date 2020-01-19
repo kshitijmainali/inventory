@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+
 const { isEmpty } = require('../../../helpers');
 class EditStock extends React.Component {
 	state = {
@@ -44,6 +45,7 @@ class EditStock extends React.Component {
 			};
 			axios.patch(`/api/v1/products/${this.state.productId}`, updateProduct).then((res) => {
 				console.log(res);
+				this.props.history.push('/stocks');
 			});
 		} else {
 			// somefield is empty

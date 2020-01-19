@@ -83,8 +83,8 @@ const destroy = async (req, res) => {
 };
 const productsController = {
 	get,
-	store,
 	show,
+	store,
 	update,
 	destroy,
 };

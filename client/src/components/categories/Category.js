@@ -8,14 +8,7 @@ const Actions = ({ category, handleDelete }) => {
 	return (
 		<div>
 			<Link
-				to={{
-					pathname: `/categories/edit/${category._id}`,
-					state: {
-						id: category._id,
-						name: category.name,
-						parentCategory: category.parentCategory,
-					},
-				}}
+				to={`/category/edit/${category._id}`}
 				className='btn btn-primary btn-circle btn-sm'
 				style={{ marginRight: 10 }}
 			>
@@ -106,7 +99,7 @@ class Category extends Component {
 			<div>
 				{/* DataTales Example */}
 				<div className='card shadow mb-4'>
-					<CategoryHeader checkRemoveBtn={this.checkRemoveBtn} />
+					<CategoryHeader history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
 					<div className='card-body'>
 						{this.state.loading ? '' : <MDBDataTable striped bordered hover data={this.state.data} />}
 					</div>
