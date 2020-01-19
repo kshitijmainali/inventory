@@ -10,8 +10,6 @@ const storeHistory = async spec => {
   }
 };
 
-//just fun
-
 const sellHistory = async body => {
   try {
     const history = await Sell.create(body);
