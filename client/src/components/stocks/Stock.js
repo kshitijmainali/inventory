@@ -33,9 +33,9 @@ class Stock extends Component {
 				productName: 'Mobile',
 				dateOfEntry: '2019-02-10',
 				quantity: '10000',
-				rate: '$100',
-			},
-		],
+				rate: '$100'
+			}
+		]
 	};
 	state = {
 		loading: true,
@@ -46,47 +46,47 @@ class Stock extends Component {
 					label: 'Product Code',
 					field: 'productCode',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Product Name',
 					field: 'name',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Price',
 					field: 'price',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Quantity',
 					field: 'quantity',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Date of Entry',
 					field: 'dateOfEntry',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Category',
 					field: 'category',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Actions',
 					field: 'actions',
 					sort: 'asc',
-					width: 150,
-				},
+					width: 150
+				}
 			],
-			rows: [],
-		},
+			rows: []
+		}
 	};
 
 	componentDidMount() {
@@ -106,7 +106,7 @@ class Stock extends Component {
 					quantity: row.quantity,
 					dateOfEntry: formatDate(row.date),
 					category: row.category ? row.category.name : 'None',
-					actions: <Actions handleDelete={this.handleDelete} product={row} />,
+					actions: <Actions handleDelete={this.handleDelete} product={row} />
 				};
 				rows.push(newRow);
 			});

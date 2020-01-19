@@ -9,7 +9,7 @@ class EditStock extends React.Component {
 		price: 0,
 		quantity: 0,
 		category: 0,
-		categories: [],
+		categories: []
 	};
 	componentDidMount() {
 		const { productId } = this.props.match.params;
@@ -40,7 +40,7 @@ class EditStock extends React.Component {
 				productCode,
 				quantity,
 				price,
-				category,
+				category
 			};
 			axios.patch(`/api/v1/products/${this.state.productId}`, updateProduct).then((res) => {
 				console.log(res);

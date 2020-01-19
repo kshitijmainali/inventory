@@ -33,9 +33,9 @@ class Category extends Component {
 		data: [
 			{
 				name: 'Mobile',
-				parentId: 'JX0011',
-			},
-		],
+				parentId: 'JX0011'
+			}
+		]
 	};
 	state = {
 		loading: true,
@@ -46,23 +46,23 @@ class Category extends Component {
 					label: 'Category Name',
 					field: 'name',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Parent Category',
 					field: 'parentCategory',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Actions',
 					field: 'actions',
 					sort: 'asc',
-					width: 100,
-				},
+					width: 100
+				}
 			],
-			rows: [],
-		},
+			rows: []
+		}
 	};
 
 	componentDidMount() {
@@ -77,7 +77,7 @@ class Category extends Component {
 				let newRow = {
 					name: row.name,
 					parentCategory: row.parentCategory ? row.parentCategory.name : 'None',
-					actions: <Actions handleDelete={this.handleDelete} category={row} />,
+					actions: <Actions handleDelete={this.handleDelete} category={row} />
 				};
 				rows.push(newRow);
 			});

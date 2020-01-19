@@ -26,7 +26,7 @@ function EditCategory() {
 				setCategories(data);
 			});
 		},
-		[ catId ],
+		[ catId ]
 	);
 
 	const handleName = (e) => {
@@ -45,7 +45,7 @@ function EditCategory() {
 			const parentCategory = parentId ? parentId : null;
 			const updateCategory = {
 				name,
-				parentCategory,
+				parentCategory
 			};
 			axios.patch(`/api/v1/categories/${catId}`, updateCategory).then((res) => {
 				setName('');

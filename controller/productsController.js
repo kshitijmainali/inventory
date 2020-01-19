@@ -6,12 +6,12 @@ const get = async (req, res) => {
 	try {
 		const data = await Product.find({}).populate('category');
 		res.status(200).json({
-			data,
+			data
 		});
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
-			err,
+			err
 		});
 	}
 };
@@ -25,17 +25,17 @@ const store = async (req, res) => {
 		data = {
 			id: newData._id,
 			vendor: req.body.vendor,
-			quantity: req.body.quantity,
+			quantity: req.body.quantity
 		};
 		await history.storeHistory(data);
 		res.status(201).json({
 			status: 'success',
-			data: newData,
+			data: newData
 		});
 	} catch (err) {
 		res.status(500).json({
 			status: 'error',
-			message: err.message,
+			message: err.message
 		});
 	}
 };
@@ -46,12 +46,12 @@ const show = async (req, res) => {
 		const data = await Product.find({ _id: req.params.id });
 		res.status(200).json({
 			message: 'success',
-			data,
+			data
 		});
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
-			err,
+			err
 		});
 	}
 };
@@ -66,23 +66,23 @@ const sell = async (req, res) => {
 			{ $set: { quantity: available[0].quantity - req.body.quantity } },
 			{
 				new: true,
-				runValidators: true,
-			},
+				runValidators: true
+			}
 		);
 		data = {
 			id: available[0]._id,
 			quantity: req.body.quantity,
-			price: req.body.quantity * available[0].price,
+			price: req.body.quantity * available[0].price
 		};
 		await history.sellHistory(data);
 		res.status(200).json({
 			status: 'success',
-			newUpdate,
+			newUpdate
 		});
 	} catch (err) {
 		res.status(404).json({
 			status: 'failed',
-			massage: err.message,
+			massage: err.message
 		});
 	}
 };
@@ -94,16 +94,16 @@ const update = async (req, res) => {
 		req.body.quantity = parseInt(req.body.quantity);
 		const newUpdate = await Product.findByIdAndUpdate(req.params.id, req.body, {
 			new: true,
-			runValidators: true,
+			runValidators: true
 		});
 		res.status(200).json({
 			message: 'success',
-			data: newUpdate,
+			data: newUpdate
 		});
 	} catch (err) {
 		res.status(500).json({
 			message: 'error',
-			err,
+			err
 		});
 	}
 };
@@ -122,7 +122,7 @@ const productsController = {
 	sell,
 	show,
 	update,
-	destroy,
+	destroy
 };
 
 module.exports = productsController;

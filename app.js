@@ -15,8 +15,8 @@ const app = express();
 app.use(
 	cookieSession({
 		maxAge: 24 * 60 * 60 * 1000,
-		keys: [ keys.session.cookieKey ],
-	}),
+		keys: [ keys.session.cookieKey ]
+	})
 );
 
 app.use(passport.initialize());
@@ -28,7 +28,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
 	res.status(200).json({
-		status: 'OK',
+		status: 'OK'
 	});
 });
 app.use('/api/v1/products', productRoute);

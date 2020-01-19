@@ -31,7 +31,7 @@ function NewCategory() {
 			const parentCategory = parentId ? parentId : null;
 			const newCategory = {
 				name,
-				parentCategory,
+				parentCategory
 			};
 			axios.post('/api/v1/categories', newCategory).then((res) => {
 				setCategories((prevCategories) => [ ...prevCategories, res.data.data ]);

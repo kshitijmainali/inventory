@@ -10,7 +10,7 @@ const get = async (req, res) => {
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
-			err,
+			err
 		});
 	}
 };
@@ -22,12 +22,12 @@ const store = async (req, res) => {
 		// lets send newData directly for convinent in frontend
 		res.status(201).json({
 			status: 'success',
-			data: newData,
+			data: newData
 		});
 	} catch (err) {
 		res.status(500).json({
 			status: 'error',
-			message: err.message,
+			message: err.message
 		});
 	}
 };
@@ -38,12 +38,12 @@ const show = async (req, res) => {
 		const data = await Category.find({ _id: req.params.id });
 		res.status(200).json({
 			message: 'success',
-			data,
+			data
 		});
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
-			err,
+			err
 		});
 	}
 };
@@ -53,16 +53,16 @@ const update = async (req, res) => {
 	try {
 		const newUpdate = await Category.findByIdAndUpdate(req.params.id, req.body, {
 			new: true,
-			runValidators: true,
+			runValidators: true
 		});
 		res.status(200).json({
 			message: 'success',
-			data: newUpdate,
+			data: newUpdate
 		});
 	} catch (err) {
 		res.status(500).json({
 			message: 'error',
-			err,
+			err
 		});
 	}
 };
@@ -73,7 +73,7 @@ const destroy = async (req, res) => {
 		const deletedData = await Category.findByIdAndRemove(req.params.id);
 		res.status(200).json({
 			message: 'success',
-			data: deletedData,
+			data: deletedData
 		});
 	} catch (err) {
 		console.log(err);
@@ -85,7 +85,7 @@ const categoriesController = {
 	show,
 	store,
 	update,
-	destroy,
+	destroy
 };
 
 module.exports = categoriesController;

@@ -12,8 +12,8 @@ class Sidebar extends Component {
 				icon: 'fas fa-fw fa-cog',
 				items: [
 					{ id: 'addNewCat', label: 'Add New Category', link: '/categories/new' },
-					{ id: 'viewAllCat', label: 'View all Categories', link: '/categories' },
-				],
+					{ id: 'viewAllCat', label: 'View all Categories', link: '/categories' }
+				]
 			},
 			{
 				id: 'products',
@@ -21,10 +21,10 @@ class Sidebar extends Component {
 				icon: 'fas fa-fw fa-wrench',
 				items: [
 					{ id: 'addNewProduct', label: 'Add New Product', link: '/stocks/new' },
-					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' },
-				],
-			},
-		],
+					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' }
+				]
+			}
+		]
 	};
 	handleClick = () => {
 		this.setState({ click: !this.state.click });

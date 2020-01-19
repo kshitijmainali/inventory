@@ -8,7 +8,7 @@ class NewStock extends React.Component {
 		quantity: 0,
 		price: 0,
 		category: '',
-		categories: [],
+		categories: []
 	};
 
 	componentDidMount() {
@@ -29,14 +29,14 @@ class NewStock extends React.Component {
 			productCode,
 			price,
 			quantity,
-			category,
+			category
 		};
 		axios.post('/api/v1/products', newProduct).then((res) => {
 			this.setState((prevState) => ({
 				productCode: '',
 				name: '',
 				price: '',
-				quantity: '',
+				quantity: ''
 			}));
 		});
 	};

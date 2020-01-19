@@ -6,17 +6,17 @@ const CategorySchema = new Schema({
 	name: {
 		type: String,
 		require: true,
-		trim: true,
+		trim: true
 	},
 	date: {
 		type: Date,
-		default: Date.now,
+		default: Date.now
 	},
 	parentCategory: {
 		type: Schema.Types.ObjectId,
 		ref: 'categories',
-		default: null,
-	},
+		default: null
+	}
 });
 
 const Category = mongoose.model('categories', CategorySchema);
