@@ -32,6 +32,22 @@ const store = async (req, res) => {
 	}
 };
 
+// get single Category
+const show = async (req, res) => {
+	try {
+		const data = await Category.find({ _id: req.params.id });
+		res.status(200).json({
+			message: 'success',
+			data,
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'failed',
+			err,
+		});
+	}
+};
+
 // update data
 const update = async (req, res) => {
 	try {
@@ -66,6 +82,7 @@ const destroy = async (req, res) => {
 
 const categoriesController = {
 	get,
+	show,
 	store,
 	update,
 	destroy,

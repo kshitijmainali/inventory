@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 const { isEmpty } = require('../../../helpers');
 
 function NewCategory() {
 	const [ name, setName ] = useState('');
 	const [ parentId, setParentId ] = useState(0);
 	const [ categories, setCategories ] = useState([ {} ]);
-
 	// componentdidmount hooks
 	useEffect(() => {
 		axios.get('/api/v1/categories/').then((res) => {
@@ -52,17 +51,21 @@ function NewCategory() {
 			</option>
 		));
 	};
+	const history = useHistory();
 	return (
 		<div>
 			{/* DataTales Example */}
 			<div className='card shadow mb-4'>
 				<div className='card-header py-3' style={{ position: 'relative' }}>
 					<h6 className='m-0 font-weight-bold text-primary'>You can add new Category</h6>
-					<button type='button' className='btn btn-primary float-right' style={{ marginTop: '-28px' }}>
+					<button
+						onClick={() => history.push('/categories')}
+						type='button'
+						className='btn btn-primary float-right'
+						style={{ marginTop: '-28px' }}
+					>
 						<i className='far fa-eye' style={{ padding: '5px' }} />
-						<Link style={{ textDecoration: 'none', color: 'white' }} to='/categories'>
-							View All Categories
-						</Link>
+						View All Categories
 					</button>
 				</div>
 				<div className='card-body'>

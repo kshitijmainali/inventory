@@ -44,6 +44,7 @@ class EditStock extends React.Component {
 			};
 			axios.patch(`/api/v1/products/${this.state.productId}`, updateProduct).then((res) => {
 				console.log(res);
+				this.props.history.push('/stocks');
 			});
 		} else {
 			// somefield is empty
