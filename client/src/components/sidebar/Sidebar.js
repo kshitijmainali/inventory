@@ -23,6 +23,20 @@ class Sidebar extends Component {
 					{ id: 'addNewProduct', label: 'Add New Product', link: '/stocks/new' },
 					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' }
 				]
+			},
+			{
+				id: 'sells',
+				label: 'Sells History',
+				icon: 'fas fa-shopping-cart',
+				link: '/stocks/sells',
+				items: []
+			},
+			{
+				id: 'purchases',
+				label: 'Purchases History',
+				icon: 'fas fa-poll-h',
+				link: '/stocks/purchases',
+				items: []
 			}
 		]
 	};
