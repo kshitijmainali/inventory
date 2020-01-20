@@ -32,6 +32,7 @@ class NewStock extends React.Component {
 			category
 		};
 		axios.post('/api/v1/products', newProduct).then((res) => {
+			console.log(res);
 			this.setState((prevState) => ({
 				productCode: '',
 				name: '',

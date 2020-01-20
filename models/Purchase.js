@@ -10,6 +10,10 @@ const PurchaseSchema = new Schema({
 	vendor: {
 		type: String
 	},
+	quantity: {
+		type: Number,
+		require: true
+	},
 	date: {
 		type: Date,
 		default: Date.now

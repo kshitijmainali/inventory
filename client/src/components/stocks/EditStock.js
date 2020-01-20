@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-const { isEmpty } = require('../../../helpers');
+const { isEmpty } = require('../../helpers');
 class EditStock extends React.Component {
 	state = {
 		productId: '',

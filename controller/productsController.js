@@ -1,6 +1,7 @@
 // load Product model
 const Product = require('../models/Product');
-
+const purchasesController = require('./purchasesController');
+const sellsController = require('./sellsController');
 // get all the Product
 const get = async (req, res) => {
 	try {
@@ -22,15 +23,17 @@ const store = async (req, res) => {
 		req.body.price = parseInt(req.body.price);
 		req.body.quantity = parseInt(req.body.quantity);
 		const newData = await Product.create(req.body);
-		data = {
-			id: newData._id,
+		const data = {
+			product: newData._id,
 			vendor: req.body.vendor,
 			quantity: req.body.quantity
 		};
-		await history.storeHistory(data);
+		const purchaseHistory = await purchasesController.store(data);
+		console.log(newData);
 		res.status(201).json({
 			status: 'success',
-			data: newData
+			data: newData,
+			purchaseHistory
 		});
 	} catch (err) {
 		res.status(500).json({
@@ -69,12 +72,12 @@ const sell = async (req, res) => {
 				runValidators: true
 			}
 		);
-		data = {
+		const data = {
 			id: available[0]._id,
 			quantity: req.body.quantity,
 			price: req.body.quantity * available[0].price
 		};
-		await history.sellHistory(data);
+		await sellsController.sellHistory(data);
 		res.status(200).json({
 			status: 'success',
 			newUpdate

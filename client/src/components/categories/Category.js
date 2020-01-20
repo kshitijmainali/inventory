@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CategoryHeader from './CategoryHeader';
+import Header from './Header';
 import { MDBDataTable } from 'mdbreact';
 import axios from 'axios';
 
@@ -99,7 +99,7 @@ class Category extends Component {
 			<div>
 				{/* DataTales Example */}
 				<div className='card shadow mb-4'>
-					<CategoryHeader history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
+					<Header history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
 					<div className='card-body'>
 						{this.state.loading ? '' : <MDBDataTable striped bordered hover data={this.state.data} />}
 					</div>

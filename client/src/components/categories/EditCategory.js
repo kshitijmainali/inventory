@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useHistory, useParams } from 'react-router-dom';
-const { isEmpty } = require('../../../helpers');
+import { useHistory, useParams } from 'react-router-dom';
+const { isEmpty } = require('../../helpers');
 
 function EditCategory() {
 	const [ name, setName ] = useState('');
 	const [ parentId, setParentId ] = useState(0);
 	const [ categories, setCategories ] = useState([ {} ]);
-	// componentdidmount hooks
 	const { catId } = useParams();
 	const history = useHistory();
 
+	// componentdidmount hooks
 	useEffect(
 		() => {
 			console.log(catId);

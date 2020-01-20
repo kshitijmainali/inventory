@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
-const { isEmpty } = require('../../../helpers');
+import { useHistory } from 'react-router-dom';
+const { isEmpty } = require('../../helpers');
 
 function NewCategory() {
 	const [ name, setName ] = useState('');

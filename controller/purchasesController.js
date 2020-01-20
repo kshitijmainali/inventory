@@ -17,18 +17,18 @@ const get = async (req, res) => {
 };
 
 // store new Purchase history
-const store = async (req, res) => {
+const store = async (data) => {
 	try {
-		const newData = await Purchase.create(req.body);
-		res.status(201).json({
+		const newData = await Purchase.create(data);
+		return {
 			status: 'success',
 			data: newData
-		});
+		};
 	} catch (err) {
-		res.status(500).json({
+		return {
 			status: 'error',
 			message: err.message
-		});
+		};
 	}
 };
 
@@ -44,6 +44,7 @@ const update = async (req, res) => {
 			data: newUpdate
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			message: 'error',
 			err

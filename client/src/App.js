@@ -4,11 +4,11 @@ import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
 import Navbar from './components/navbar/Navbar';
 import Stock from './components/stocks/Stock';
-import NewStock from './components/stocks/new/NewStock';
-import EditStock from './components/stocks/edit/EditStock';
+import NewStock from './components/stocks/NewStock';
+import EditStock from './components/stocks/EditStock';
 import Category from './components/categories/Category';
-import NewCategory from './components/categories/new/NewCategory';
-import EditCategory from './components/categories/edit/EditCategory';
+import NewCategory from './components/categories/NewCategory';
+import EditCategory from './components/categories/EditCategory';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
