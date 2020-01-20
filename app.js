@@ -1,13 +1,13 @@
 const express = require('express');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const productRoute = require('./routes/productRoute');
-const categoryRoutes = require('./routes/categoryRoutes');
+const productRoute = require('./routes/product');
+const categoryRoutes = require('./routes/category');
 // eslint-disable-next-line no-unused-vars
 const passportSetup = require('./config/passwordSetup');
 const keys = require('./config/keys');
-const AuthRoute = require('./routes/AuthRoute');
-const logOut = require('./routes/logoutRoute');
+const AuthRoute = require('./routes/auth');
+const logOut = require('./routes/logout');
 const logIn = require('./routes/googleSignIn');
 
 const app = express();
