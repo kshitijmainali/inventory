@@ -3,41 +3,24 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 import { MDBDataTable } from 'mdbreact';
 import axios from 'axios';
-const { formatDate } = require('../../helpers');
+import { formatDate } from '../../helpers';
 
-const Actions = ({ product, handleDelete }) => {
+const Actions = ({ purchase, handleDelete }) => {
 	return (
 		<div>
-			<Link to={`/stock/edit/${product._id}`} className='btn btn-primary btn-circle btn-sm' style={{ marginRight: 10 }}>
-				<i className='fas fa-pencil-alt' />
-			</Link>
-			<Link
-				to={`/stocks/details/${product._id}`}
-				className='btn btn-info btn-circle btn-sm'
-				style={{ cursor: 'pointer', marginRight: 10 }}
-			>
+			<Link to={`/stocks/details/${purchase._id}`} className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
 				<i className='far fa-eye' />
 			</Link>
-			<div
-				onClick={() => handleDelete(product)}
-				style={{ cursor: 'pointer' }}
-				className='btn btn-danger btn-circle btn-sm'
-			>
-				<i className='fas fa-times' />
-			</div>
 		</div>
 	);
 };
 
-class Stock extends Component {
+class PurchaseHistory extends Component {
 	static defaultProps = {
 		data: [
 			{
-				productCode: 'JX0011',
-				productName: 'Mobile',
-				dateOfEntry: '2019-02-10',
-				quantity: '10000',
-				rate: '$100'
+				name: 'Mobile',
+				parentId: 'JX0011'
 			}
 		]
 	};
@@ -46,6 +29,18 @@ class Stock extends Component {
 		checkboxState: false,
 		data: {
 			columns: [
+				{
+					label: 'Date',
+					field: 'date',
+					sort: 'asc',
+					width: 150
+				},
+				{
+					label: 'Transaction Code',
+					field: 'transactionCode',
+					sort: 'asc',
+					width: 150
+				},
 				{
 					label: 'Product Code',
 					field: 'productCode',
@@ -59,26 +54,20 @@ class Stock extends Component {
 					width: 150
 				},
 				{
-					label: 'Price',
-					field: 'price',
-					sort: 'asc',
-					width: 150
-				},
-				{
 					label: 'Quantity',
 					field: 'quantity',
 					sort: 'asc',
 					width: 150
 				},
 				{
-					label: 'Date of Entry',
-					field: 'dateOfEntry',
+					label: 'Rate',
+					field: 'price',
 					sort: 'asc',
 					width: 150
 				},
 				{
-					label: 'Category',
-					field: 'category',
+					label: 'Total',
+					field: 'totalPrice',
 					sort: 'asc',
 					width: 150
 				},
@@ -86,7 +75,7 @@ class Stock extends Component {
 					label: 'Actions',
 					field: 'actions',
 					sort: 'asc',
-					width: 150
+					width: 100
 				}
 			],
 			rows: []
@@ -94,23 +83,23 @@ class Stock extends Component {
 	};
 
 	componentDidMount() {
-		this.fetchUpdateProducts();
+		this.fetchPurchases();
 	}
-
-	fetchUpdateProducts = () => {
+	fetchPurchases = () => {
 		let rows = [];
-		axios.get('api/v1/products').then((res) => {
+		axios.get('api/v1/purchases').then((res) => {
 			const { data } = res.data;
 			console.log(data);
 			data.forEach((row) => {
 				let newRow = {
-					name: row.name,
-					productCode: row.productCode,
-					price: row.price,
-					quantity: row.quantity,
-					dateOfEntry: formatDate(row.date),
-					category: row.category ? row.category.name : 'None',
-					actions: <Actions handleDelete={this.handleDelete} product={row} />
+					name: row.product.name,
+					transactionCode: row.transactionCode,
+					productCode: row.product.productCode,
+					price: row.product.price,
+					quantity: row.product.quantity,
+					totalPrice: row.product.price * row.product.quantity,
+					date: formatDate(row.date),
+					actions: <Actions handleDelete={this.handleDelete} purchase={row} />
 				};
 				rows.push(newRow);
 			});
@@ -123,10 +112,9 @@ class Stock extends Component {
 	checkRemoveBtn = () => {
 		this.setState({ checkboxState: !this.state.checkboxState });
 	};
-
-	handleDelete = (product) => {
-		console.log(product._id);
-		axios.delete(`/api/v1/products/${product._id}`).then((res) => this.fetchUpdateProducts());
+	handleDelete = (category) => {
+		console.log(category._id);
+		axios.delete(`/api/v1/categories/${category._id}`).then((res) => this.fetchUpdatedCategories());
 	};
 	render() {
 		return (
@@ -143,4 +131,4 @@ class Stock extends Component {
 	}
 }
 
-export default Stock;
+export default PurchaseHistory;

@@ -18,7 +18,7 @@ const formatDate = (date) => {
 		'September',
 		'October',
 		'November',
-		'December',
+		'December'
 	];
 
 	const day = date.getDate();
@@ -28,4 +28,15 @@ const formatDate = (date) => {
 	return day + ' ' + months[monthIndex] + ' ' + year;
 };
 
-module.exports = { isEmpty, formatDate };
+const generateTransactionCode = () => {
+	let date = new Date();
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+	let seconds = date.getSeconds();
+	let random = Math.floor(Math.random() * 100000 + 1);
+	let transactionCode = '' + random + day + month + seconds;
+
+	return parseInt(transactionCode);
+};
+
+module.exports = { isEmpty, formatDate, generateTransactionCode };

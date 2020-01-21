@@ -7,6 +7,10 @@ const PurchaseSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'products'
 	},
+	transactionCode: {
+		type: Number,
+		require: true
+	},
 	vendor: {
 		type: String
 	},

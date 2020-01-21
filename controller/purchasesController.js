@@ -4,7 +4,7 @@ const Purchase = require('../models/Purchase');
 // get all the Purchase history
 const get = async (req, res) => {
 	try {
-		const data = await Purchase.find({});
+		const data = await Purchase.find({}).populate('product');
 		res.status(200).json({
 			data
 		});
@@ -32,6 +32,38 @@ const store = async (data) => {
 	}
 };
 
+// show purchase
+const show = async (req, res) => {
+	try {
+		const data = await Purchase.find({ _id: req.params.id });
+		res.status(200).json({
+			message: 'success',
+			data
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'failed',
+			err
+		});
+	}
+};
+
+// find products in purchase
+const findProduct = async (req, res) => {
+	try {
+		const data = await Purchase.find({ product: req.params.id }).populate('product');
+		res.status(200).json({
+			message: 'success',
+			data
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'failed',
+			err
+		});
+	}
+};
+
 // update Purchase
 const update = async (req, res) => {
 	try {
@@ -51,21 +83,25 @@ const update = async (req, res) => {
 		});
 	}
 };
+
 const destroy = async (req, res) => {
 	try {
 		// eslint-disable-next-line no-unused-vars
-		const deletedData = await Purchase.findByIdAndRemove(req.params.id);
-		res.redirect('/');
+		const deletedData = await Purchase.remove({});
+		res.send('success');
 	} catch (err) {
 		console.log(err);
+		res.send(err);
 	}
 };
 
 const purchasesController = {
 	get,
+	show,
 	store,
 	update,
-	destroy
+	destroy,
+	findProduct
 };
 
 module.exports = purchasesController;

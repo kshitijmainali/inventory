@@ -5,8 +5,8 @@ function SidebarItem({ items }) {
 	return items.map((item, i) => (
 		<li key={i} className='nav-item'>
 			<Link
-				className='nav-link collapsed'
 				to={item.link}
+				className='nav-link collapsed'
 				data-toggle={!item.link && 'collapse'}
 				data-target={`#${item.id}`}
 				aria-expanded='true'

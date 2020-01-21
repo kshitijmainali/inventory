@@ -2,6 +2,7 @@
 const Product = require('../models/Product');
 const purchasesController = require('./purchasesController');
 const sellsController = require('./sellsController');
+const { generateTransactionCode } = require('../helpers');
 // get all the Product
 const get = async (req, res) => {
 	try {
@@ -24,6 +25,7 @@ const store = async (req, res) => {
 		req.body.quantity = parseInt(req.body.quantity);
 		const newData = await Product.create(req.body);
 		const data = {
+			transactionCode: generateTransactionCode(),
 			product: newData._id,
 			vendor: req.body.vendor,
 			quantity: req.body.quantity

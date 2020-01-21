@@ -5,7 +5,6 @@ class Sidebar extends Component {
 	state = {
 		click: false,
 		items: [
-			// { name: 'home', label: 'Home' },
 			{
 				id: 'categories',
 				label: 'Categories',
@@ -25,17 +24,17 @@ class Sidebar extends Component {
 				]
 			},
 			{
-				id: 'sells',
-				label: 'Sells History',
-				icon: 'fas fa-shopping-cart',
-				link: '/stocks/sells',
-				items: []
-			},
-			{
 				id: 'purchases',
 				label: 'Purchases History',
 				icon: 'fas fa-poll-h',
 				link: '/stocks/purchases',
+				items: []
+			},
+			{
+				id: 'sells',
+				label: 'Sells History',
+				icon: 'fas fa-shopping-cart',
+				link: '/stocks/sells',
 				items: []
 			}
 		]
