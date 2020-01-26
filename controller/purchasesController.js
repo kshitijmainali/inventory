@@ -51,7 +51,8 @@ const show = async (req, res) => {
 // find products in purchase
 const findProduct = async (req, res) => {
 	try {
-		const data = await Purchase.find({ product: req.params.id }).populate('product');
+		const data = await Purchase.find({ product: req.params.id });
+		console.log(req.params.id);
 		res.status(200).json({
 			message: 'success',
 			data

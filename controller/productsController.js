@@ -61,6 +61,23 @@ const show = async (req, res) => {
 	}
 };
 
+// get single Product
+const search = async (req, res) => {
+	console.log(req.params.tag);
+	try {
+		const data = await Product.find({ name: { $regex: req.params.tag, $options: 'i' } });
+		res.status(200).json({
+			message: 'success',
+			data
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'failed',
+			err
+		});
+	}
+};
+
 //sell the product and create the sell history
 const sell = async (req, res) => {
 	try {
@@ -127,6 +144,7 @@ const productsController = {
 	sell,
 	show,
 	update,
+	search,
 	destroy
 };
 

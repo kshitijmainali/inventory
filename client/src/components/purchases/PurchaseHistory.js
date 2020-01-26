@@ -5,15 +5,15 @@ import { MDBDataTable } from 'mdbreact';
 import axios from 'axios';
 import { formatDate } from '../../helpers';
 
-const Actions = ({ purchase, handleDelete }) => {
-	return (
-		<div>
-			<Link to={`/stocks/details/${purchase._id}`} className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
-				<i className='far fa-eye' />
-			</Link>
-		</div>
-	);
-};
+// const Actions = ({ purchase, handleDelete }) => {
+// 	return (
+// 		<div>
+// 			<Link to={`/stocks/details/${purchase._id}`} className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
+// 				<i className='far fa-eye' />
+// 			</Link>
+// 		</div>
+// 	);
+// };
 
 class PurchaseHistory extends Component {
 	static defaultProps = {
@@ -70,12 +70,6 @@ class PurchaseHistory extends Component {
 					field: 'totalPrice',
 					sort: 'asc',
 					width: 150
-				},
-				{
-					label: 'Actions',
-					field: 'actions',
-					sort: 'asc',
-					width: 100
 				}
 			],
 			rows: []
@@ -98,8 +92,7 @@ class PurchaseHistory extends Component {
 					price: row.product.price,
 					quantity: row.product.quantity,
 					totalPrice: row.product.price * row.product.quantity,
-					date: formatDate(row.date),
-					actions: <Actions handleDelete={this.handleDelete} purchase={row} />
+					date: formatDate(row.date)
 				};
 				rows.push(newRow);
 			});

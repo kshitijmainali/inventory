@@ -19,7 +19,7 @@ class Sidebar extends Component {
 				label: 'Products',
 				icon: 'fas fa-fw fa-wrench',
 				items: [
-					{ id: 'addNewProduct', label: 'Add New Product', link: '/stocks/new' },
+					{ id: 'addNewProduct', label: 'Add Product', link: '/stocks/add' },
 					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' }
 				]
 			},

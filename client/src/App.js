@@ -26,7 +26,7 @@ function App() {
 							<Switch>
 								<Route path='/' exact component={Stock} />
 								<Route path='/stocks' exact component={Stock} />
-								<Route path='/stocks/new' component={NewStock} />
+								<Route path='/stocks/add' component={NewStock} />
 								<Route path='/stocks/details/:productId' component={ShowStock} />
 								<Route path='/stock/edit/:productId' component={EditStock} />
 								<Route path='/categories' exact component={Category} />
