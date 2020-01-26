@@ -42,7 +42,8 @@ class EditStock extends React.Component {
 				productCode,
 				quantity: quantity + parseInt(newQuantity),
 				price: price + parseInt(newPrice),
-				category
+				category,
+				newQuantity
 			};
 			axios.patch(`/api/v1/products/${this.state.productId}`, updateProduct).then((res) => {
 				console.log(res);

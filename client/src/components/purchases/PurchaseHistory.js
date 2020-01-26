@@ -90,7 +90,7 @@ class PurchaseHistory extends Component {
 					transactionCode: row.transactionCode,
 					productCode: row.product.productCode,
 					price: row.product.price,
-					quantity: row.product.quantity,
+					quantity: row.quantity,
 					totalPrice: row.product.price * row.product.quantity,
 					date: formatDate(row.date)
 				};

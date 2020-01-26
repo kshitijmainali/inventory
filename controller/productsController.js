@@ -114,13 +114,23 @@ const update = async (req, res) => {
 		console.log(req.body);
 		req.body.price = parseInt(req.body.price);
 		req.body.quantity = parseInt(req.body.quantity);
+		const { newQuantity } = req.body;
+		delete req.body.newQuantity;
 		const newUpdate = await Product.findByIdAndUpdate(req.params.id, req.body, {
 			new: true,
 			runValidators: true
 		});
-		res.status(200).json({
-			message: 'success',
-			data: newUpdate
+		const data = {
+			transactionCode: generateTransactionCode(),
+			product: newUpdate._id,
+			vendor: req.body.vendor,
+			quantity: newQuantity
+		};
+		const purchaseHistory = await purchasesController.store(data);
+		res.status(201).json({
+			status: 'success',
+			data: newUpdate,
+			purchaseHistory
 		});
 	} catch (err) {
 		res.status(500).json({
