@@ -5,26 +5,39 @@ class Sidebar extends Component {
 	state = {
 		click: false,
 		items: [
-			// { name: 'home', label: 'Home' },
 			{
 				id: 'categories',
 				label: 'Categories',
 				icon: 'fas fa-fw fa-cog',
 				items: [
 					{ id: 'addNewCat', label: 'Add New Category', link: '/categories/new' },
-					{ id: 'viewAllCat', label: 'View all Categories', link: '/categories' },
-				],
+					{ id: 'viewAllCat', label: 'View all Categories', link: '/categories' }
+				]
 			},
 			{
 				id: 'products',
 				label: 'Products',
 				icon: 'fas fa-fw fa-wrench',
 				items: [
-					{ id: 'addNewProduct', label: 'Add New Product', link: '/stocks/new' },
-					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' },
-				],
+					{ id: 'addNewProduct', label: 'Add Product', link: '/stocks/add' },
+					{ id: 'viewAllProducts', label: 'View all Products', link: '/stocks' }
+				]
 			},
-		],
+			{
+				id: 'purchases',
+				label: 'Purchases History',
+				icon: 'fas fa-poll-h',
+				link: '/stocks/purchases',
+				items: []
+			},
+			{
+				id: 'sells',
+				label: 'Sells History',
+				icon: 'fas fa-shopping-cart',
+				link: '/stocks/sells',
+				items: []
+			}
+		]
 	};
 	handleClick = () => {
 		this.setState({ click: !this.state.click });

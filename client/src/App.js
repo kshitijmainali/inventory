@@ -4,11 +4,13 @@ import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
 import Navbar from './components/navbar/Navbar';
 import Stock from './components/stocks/Stock';
-import NewStock from './components/stocks/new/NewStock';
-import EditStock from './components/stocks/edit/EditStock';
+import NewStock from './components/stocks/NewStock';
+import ShowStock from './components/stocks/ShowStock';
+import EditStock from './components/stocks/EditStock';
 import Category from './components/categories/Category';
-import NewCategory from './components/categories/new/NewCategory';
-import EditCategory from './components/categories/edit/EditCategory';
+import NewCategory from './components/categories/NewCategory';
+import EditCategory from './components/categories/EditCategory';
+import PurchaseHistory from './components/purchases/PurchaseHistory';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -24,11 +26,13 @@ function App() {
 							<Switch>
 								<Route path='/' exact component={Stock} />
 								<Route path='/stocks' exact component={Stock} />
-								<Route path='/stocks/new' component={NewStock} />
+								<Route path='/stocks/add' component={NewStock} />
+								<Route path='/stocks/details/:productId' component={ShowStock} />
 								<Route path='/stock/edit/:productId' component={EditStock} />
 								<Route path='/categories' exact component={Category} />
 								<Route path='/categories/new' component={NewCategory} />
 								<Route path='/category/edit/:catId' component={EditCategory} />
+								<Route path='/stocks/purchases' component={PurchaseHistory} />
 							</Switch>
 						</div>
 					</div>

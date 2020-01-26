@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 exports.logInGoogle = passport.authenticate('google', {
-	scope: [ 'profile', 'email' ],
+	scope: [ 'profile', 'email' ]
 });
 
 exports.googleRedirect = (req, res) => {
@@ -9,8 +9,8 @@ exports.googleRedirect = (req, res) => {
 		status: 'success',
 		data: {
 			message: 'new user created successfully',
-			user: req.user,
-		},
+			user: req.user
+		}
 	});
 };
 
@@ -21,7 +21,7 @@ exports.facebookRedirect = (req, res) => {
 		status: 'success',
 		data: {
 			message: 'new user created successfully',
-			user: req.user,
-		},
+			user: req.user
+		}
 	});
 };

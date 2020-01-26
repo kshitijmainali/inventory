@@ -6,12 +6,12 @@ const get = async (req, res) => {
 	try {
 		const data = await Sell.find({});
 		res.status(200).json({
-			data,
+			data
 		});
 	} catch (err) {
 		res.status(400).json({
 			status: 'failed',
-			err,
+			err
 		});
 	}
 };
@@ -22,12 +22,12 @@ const store = async (req, res) => {
 		const newData = await Sell.create(req.body);
 		res.status(201).json({
 			status: 'success',
-			data: newData,
+			data: newData
 		});
 	} catch (err) {
 		res.status(500).json({
 			status: 'error',
-			message: err.message,
+			message: err.message
 		});
 	}
 };
@@ -37,16 +37,16 @@ const update = async (req, res) => {
 	try {
 		const newUpdate = await Sell.findByIdAndUpdate(req.params.id, req.body, {
 			new: true,
-			runValidators: true,
+			runValidators: true
 		});
 		res.status(200).json({
 			message: 'success',
-			data: newUpdate,
+			data: newUpdate
 		});
 	} catch (err) {
 		res.status(500).json({
 			message: 'error',
-			err,
+			err
 		});
 	}
 };
@@ -65,7 +65,7 @@ const sellsController = {
 	get,
 	store,
 	update,
-	destroy,
+	destroy
 };
 
 module.exports = sellsController;

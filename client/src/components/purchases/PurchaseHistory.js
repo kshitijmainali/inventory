@@ -3,32 +3,19 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 import { MDBDataTable } from 'mdbreact';
 import axios from 'axios';
+import { formatDate } from '../../helpers';
 
-const Actions = ({ category, handleDelete }) => {
-	return (
-		<div>
-			<Link
-				to={`/category/edit/${category._id}`}
-				className='btn btn-primary btn-circle btn-sm'
-				style={{ marginRight: 10 }}
-			>
-				<i className='fas fa-pencil-alt' />
-			</Link>
-			<div className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
-				<i className='far fa-eye' />
-			</div>
-			<div
-				onClick={() => handleDelete(category)}
-				style={{ cursor: 'pointer' }}
-				className='btn btn-danger btn-circle btn-sm'
-			>
-				<i className='fas fa-times' />
-			</div>
-		</div>
-	);
-};
+// const Actions = ({ purchase, handleDelete }) => {
+// 	return (
+// 		<div>
+// 			<Link to={`/stocks/details/${purchase._id}`} className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
+// 				<i className='far fa-eye' />
+// 			</Link>
+// 		</div>
+// 	);
+// };
 
-class Category extends Component {
+class PurchaseHistory extends Component {
 	static defaultProps = {
 		data: [
 			{
@@ -43,22 +30,46 @@ class Category extends Component {
 		data: {
 			columns: [
 				{
-					label: 'Category Name',
+					label: 'Date',
+					field: 'date',
+					sort: 'asc',
+					width: 150
+				},
+				{
+					label: 'Transaction Code',
+					field: 'transactionCode',
+					sort: 'asc',
+					width: 150
+				},
+				{
+					label: 'Product Code',
+					field: 'productCode',
+					sort: 'asc',
+					width: 150
+				},
+				{
+					label: 'Product Name',
 					field: 'name',
 					sort: 'asc',
 					width: 150
 				},
 				{
-					label: 'Parent Category',
-					field: 'parentCategory',
+					label: 'Quantity',
+					field: 'quantity',
 					sort: 'asc',
 					width: 150
 				},
 				{
-					label: 'Actions',
-					field: 'actions',
+					label: 'Rate',
+					field: 'price',
 					sort: 'asc',
-					width: 100
+					width: 150
+				},
+				{
+					label: 'Total',
+					field: 'totalPrice',
+					sort: 'asc',
+					width: 150
 				}
 			],
 			rows: []
@@ -66,18 +77,22 @@ class Category extends Component {
 	};
 
 	componentDidMount() {
-		this.fetchUpdatedCategories();
+		this.fetchPurchases();
 	}
-	fetchUpdatedCategories = () => {
+	fetchPurchases = () => {
 		let rows = [];
-		axios.get('api/v1/categories').then((res) => {
+		axios.get('api/v1/purchases').then((res) => {
 			const { data } = res.data;
 			console.log(data);
 			data.forEach((row) => {
 				let newRow = {
-					name: row.name,
-					parentCategory: row.parentCategory ? row.parentCategory.name : 'None',
-					actions: <Actions handleDelete={this.handleDelete} category={row} />
+					name: row.product.name,
+					transactionCode: row.transactionCode,
+					productCode: row.product.productCode,
+					price: row.product.price,
+					quantity: row.quantity,
+					totalPrice: row.product.price * row.product.quantity,
+					date: formatDate(row.date)
 				};
 				rows.push(newRow);
 			});
@@ -109,4 +124,4 @@ class Category extends Component {
 	}
 }
 
-export default Category;
+export default PurchaseHistory;

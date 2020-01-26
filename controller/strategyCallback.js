@@ -9,7 +9,7 @@ exports.gcallback = async (accessToken, refreshToken, profile, done) => {
 			const user = {
 				name: profile.displayName,
 				Id: profile.id,
-				mailAddress: profile.emails[0].value,
+				mailAddress: profile.emails[0].value
 			};
 			const newusr = await User.create(user);
 			done(null, newusr);
@@ -29,7 +29,7 @@ exports.fcallback = async (accessToken, refreshToken, profile, done) => {
 			console.log(profile);
 			const user = {
 				name: profile.displayName,
-				Id: profile.id,
+				Id: profile.id
 			};
 			const newusr = await User.create(user);
 			done(null, newusr);

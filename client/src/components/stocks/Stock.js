@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import StockHeader from './StockHeader';
+import Header from './Header';
 import { MDBDataTable } from 'mdbreact';
 import axios from 'axios';
 const { formatDate } = require('../../helpers');
@@ -11,9 +11,13 @@ const Actions = ({ product, handleDelete }) => {
 			<Link to={`/stock/edit/${product._id}`} className='btn btn-primary btn-circle btn-sm' style={{ marginRight: 10 }}>
 				<i className='fas fa-pencil-alt' />
 			</Link>
-			<div className='btn btn-info btn-circle btn-sm' style={{ cursor: 'pointer', marginRight: 10 }}>
+			<Link
+				to={`/stocks/details/${product._id}`}
+				className='btn btn-info btn-circle btn-sm'
+				style={{ cursor: 'pointer', marginRight: 10 }}
+			>
 				<i className='far fa-eye' />
-			</div>
+			</Link>
 			<div
 				onClick={() => handleDelete(product)}
 				style={{ cursor: 'pointer' }}
@@ -33,9 +37,9 @@ class Stock extends Component {
 				productName: 'Mobile',
 				dateOfEntry: '2019-02-10',
 				quantity: '10000',
-				rate: '$100',
-			},
-		],
+				rate: '$100'
+			}
+		]
 	};
 	state = {
 		loading: true,
@@ -46,47 +50,47 @@ class Stock extends Component {
 					label: 'Product Code',
 					field: 'productCode',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Product Name',
 					field: 'name',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Price',
 					field: 'price',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Quantity',
 					field: 'quantity',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Date of Entry',
 					field: 'dateOfEntry',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Category',
 					field: 'category',
 					sort: 'asc',
-					width: 150,
+					width: 150
 				},
 				{
 					label: 'Actions',
 					field: 'actions',
 					sort: 'asc',
-					width: 150,
-				},
+					width: 150
+				}
 			],
-			rows: [],
-		},
+			rows: []
+		}
 	};
 
 	componentDidMount() {
@@ -106,7 +110,7 @@ class Stock extends Component {
 					quantity: row.quantity,
 					dateOfEntry: formatDate(row.date),
 					category: row.category ? row.category.name : 'None',
-					actions: <Actions handleDelete={this.handleDelete} product={row} />,
+					actions: <Actions handleDelete={this.handleDelete} product={row} />
 				};
 				rows.push(newRow);
 			});
@@ -129,7 +133,7 @@ class Stock extends Component {
 			<div>
 				{/* DataTales Example */}
 				<div className='card shadow mb-4'>
-					<StockHeader history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
+					<Header history={this.props.history} checkRemoveBtn={this.checkRemoveBtn} />
 					<div className='card-body'>
 						{this.state.loading ? '' : <MDBDataTable striped bordered hover data={this.state.data} />}
 					</div>

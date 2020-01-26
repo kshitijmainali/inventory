@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
-const { isEmpty } = require('../../../helpers');
+import { useHistory, useParams } from 'react-router-dom';
+const { isEmpty } = require('../../helpers');
 
-function NewCategory() {
+function EditCategory() {
 	const [ name, setName ] = useState('');
 	const [ parentId, setParentId ] = useState(0);
 	const [ categories, setCategories ] = useState([ {} ]);
+	const { catId } = useParams();
+	const history = useHistory();
+
 	// componentdidmount hooks
-	useEffect(() => {
-		axios.get('/api/v1/categories/').then((res) => {
-			const { data } = res.data;
-			setCategories(data);
-		});
-	}, []);
+	useEffect(
+		() => {
+			console.log(catId);
+			axios.get(`/api/v1/categories/${catId}`).then((res) => {
+				console.log(res.data);
+				const { name, parentCategory } = res.data.data[0];
+				setName(name);
+				setParentId(parentCategory);
+			});
+
+			axios.get('/api/v1/categories/').then((res) => {
+				const { data } = res.data;
+				setCategories(data);
+			});
+		},
+		[ catId ]
+	);
 
 	const handleName = (e) => {
 		setName(e.target.value);
@@ -29,13 +43,13 @@ function NewCategory() {
 		// check empty
 		if (!(isEmpty(name) || isEmpty(parentId))) {
 			const parentCategory = parentId ? parentId : null;
-			const newCategory = {
+			const updateCategory = {
 				name,
-				parentCategory,
+				parentCategory
 			};
-			axios.post('/api/v1/categories', newCategory).then((res) => {
-				setCategories((prevCategories) => [ ...prevCategories, res.data.data ]);
+			axios.patch(`/api/v1/categories/${catId}`, updateCategory).then((res) => {
 				setName('');
+				history.push('/categories');
 			});
 		} else {
 			// somefield is empty
@@ -51,7 +65,6 @@ function NewCategory() {
 			</option>
 		));
 	};
-	const history = useHistory();
 	return (
 		<div>
 			{/* DataTales Example */}
@@ -83,7 +96,7 @@ function NewCategory() {
 							</div>
 							<div className='form-group col-md-4'>
 								<label htmlFor='parentCat'>Parent Category</label>
-								<select onChange={handleSelect} className='form-control' name='parentCat' id=''>
+								<select value={parentId} onChange={handleSelect} className='form-control' name='parentCat' id=''>
 									<option value={0}>Default</option>
 									{categories.length && renderOptions()}
 								</select>
@@ -91,7 +104,7 @@ function NewCategory() {
 						</div>
 
 						<button onClick={handleSubmit} type='submit' className='btn btn-primary'>
-							Add Category
+							Update Category
 						</button>
 					</form>
 				</div>
@@ -100,4 +113,4 @@ function NewCategory() {
 	);
 }
 
-export default NewCategory;
+export default EditCategory;

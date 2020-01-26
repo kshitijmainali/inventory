@@ -5,20 +5,20 @@ const { Schema } = mongoose;
 const SellSchema = new Schema({
 	product: {
 		type: Schema.Types.ObjectId,
-		ref: 'products',
+		ref: 'products'
 	},
 	quantity: {
 		type: Number,
-		default: 1,
+		default: 1
 	},
 	price: {
 		type: Number,
-		require: true,
+		require: true
 	},
 	date: {
 		type: Date,
-		default: Date.now,
-	},
+		default: Date.now
+	}
 });
 
 const Sell = mongoose.model('sells', SellSchema);

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-const { isEmpty } = require('../../../helpers');
+const { isEmpty } = require('../../helpers');
 class EditStock extends React.Component {
 	state = {
 		productId: '',
@@ -10,6 +10,8 @@ class EditStock extends React.Component {
 		quantity: 0,
 		category: 0,
 		categories: [],
+		newQuantity: 0,
+		newPrice: 0
 	};
 	componentDidMount() {
 		const { productId } = this.props.match.params;
@@ -33,14 +35,15 @@ class EditStock extends React.Component {
 		e.preventDefault();
 		// check empty
 		if (!(isEmpty(this.state.name) || isEmpty(this.state.productCode))) {
-			const { name, productCode, quantity, price } = this.state;
+			const { name, productCode, quantity, price, newQuantity, newPrice } = this.state;
 			const category = this.state.category ? this.state.category : null;
 			const updateProduct = {
 				name,
 				productCode,
-				quantity,
-				price,
+				quantity: quantity + parseInt(newQuantity),
+				price: price + parseInt(newPrice),
 				category,
+				newQuantity
 			};
 			axios.patch(`/api/v1/products/${this.state.productId}`, updateProduct).then((res) => {
 				console.log(res);
@@ -66,7 +69,7 @@ class EditStock extends React.Component {
 				{/* DataTales Example */}
 				<div className='card shadow mb-4'>
 					<div className='card-header py-3' style={{ position: 'relative' }}>
-						<h6 className='m-0 font-weight-bold text-primary'>Update Item to Stock</h6>
+						<h6 className='m-0 font-weight-bold text-primary'>Update {this.state.name} to Stock</h6>
 					</div>
 					<div className='card-body'>
 						<form>
@@ -79,7 +82,7 @@ class EditStock extends React.Component {
 										placeholder='Product Code'
 										value={this.state.productCode}
 										name='productCode'
-										onChange={this.handleChange}
+										disabled
 									/>
 								</div>
 								<div className='form-group col-md-4'>
@@ -102,30 +105,31 @@ class EditStock extends React.Component {
 										name='category'
 										id=''
 									>
+										<option value='null'>Select</option>
 										{this.state.categories.length && this.renderOptions()}
 									</select>
 								</div>
 							</div>
 							<div className='row'>
 								<div className='form-group col-md-4'>
-									<label htmlFor='exampleInputEmail1'>Quantity</label>
+									<label htmlFor='exampleInputEmail1'>Quantity: {this.state.quantity} </label>
 									<input
-										type='text'
-										name='quantity'
+										type='number'
+										name='newQuantity'
 										className='form-control'
-										placeholder='Product Quantity'
-										value={this.state.quantity}
+										placeholder='New Quantity'
+										value={this.state.newQuantity ? this.state.newQuantity : null}
 										onChange={this.handleChange}
 									/>
 								</div>
 								<div className='form-group col-md-4'>
-									<label htmlFor='exampleInputEmail1'>Price</label>
+									<label htmlFor='exampleInputEmail1'>Price: {this.state.price} </label>
 									<input
-										type='text'
-										name='price'
+										type='number'
+										name='newPrice'
 										className='form-control'
-										placeholder='Product Rate'
-										value={this.state.price}
+										placeholder='Update New Price'
+										value={this.state.newPrice ? this.state.newPrice : null}
 										onChange={this.handleChange}
 									/>
 								</div>

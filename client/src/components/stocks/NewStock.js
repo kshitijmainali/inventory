@@ -1,14 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+const { generateProductCode } = require('../../helpers');
 
 class NewStock extends React.Component {
 	state = {
+		suggestion: { data: [] },
 		productCode: '',
 		name: '',
 		quantity: 0,
 		price: 0,
 		category: '',
-		categories: [],
+		categories: []
 	};
 
 	componentDidMount() {
@@ -16,6 +19,7 @@ class NewStock extends React.Component {
 			const { data } = res.data;
 			this.setState({ categories: data });
 		});
+		this.setState({ productCode: generateProductCode() });
 	}
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -29,18 +33,25 @@ class NewStock extends React.Component {
 			productCode,
 			price,
 			quantity,
-			category,
+			category
 		};
 		axios.post('/api/v1/products', newProduct).then((res) => {
+			console.log(res);
 			this.setState((prevState) => ({
-				productCode: '',
+				productCode: generateProductCode(),
 				name: '',
 				price: '',
-				quantity: '',
+				quantity: ''
 			}));
 		});
 	};
 
+	handleName = (e) => {
+		this.setState({ name: e.target.value });
+		if (e.target.value)
+			axios.get(`api/v1/products/search/${e.target.value}`).then((res) => this.setState({ suggestion: res.data }));
+		else this.setState({ suggestion: { data: [] } });
+	};
 	renderOptions = () => {
 		return this.state.categories.map((category, i) => (
 			<option key={i} value={category._id}>
@@ -48,6 +59,16 @@ class NewStock extends React.Component {
 				{category.name}{' '}
 			</option>
 		));
+	};
+
+	renderSuggestions = () => {
+		console.log(this.state.suggestion.data);
+		if (this.state.suggestion.data.length)
+			return this.state.suggestion.data.map((el, i) => (
+				<Link to={`/stock/edit/${el._id}`} style={{ cursor: 'pointer' }} key={i}>
+					{el.name}
+				</Link>
+			));
 	};
 	render() {
 		return (
@@ -69,22 +90,27 @@ class NewStock extends React.Component {
 										value={this.state.productCode}
 										name='productCode'
 										onChange={this.handleChange}
+										disabled
 									/>
 								</div>
 								<div className='form-group col-md-4'>
-									<label htmlFor='exampleInputEmail1'>Name</label>
+									<label htmlFor='name'>Name</label>
 									<input
 										type='text'
 										className='form-control'
 										placeholder='Product Name'
 										value={this.state.name}
 										name='name'
-										onChange={this.handleChange}
+										onChange={this.handleName}
 									/>
+									<div style={{ position: 'absolute', zIndex: 1, backgroundColor: 'white', width: '95%' }}>
+										{this.renderSuggestions()}
+									</div>
 								</div>
 								<div className='form-group col-md-4'>
 									<label htmlFor='category'>Category</label>
 									<select onChange={this.handleChange} className='form-control' name='category' id=''>
+										<option value='null'>Select</option>
 										{this.state.categories.length && this.renderOptions()}
 									</select>
 								</div>

@@ -5,15 +5,23 @@ const { Schema } = mongoose;
 const PurchaseSchema = new Schema({
 	product: {
 		type: Schema.Types.ObjectId,
-		ref: 'products',
+		ref: 'products'
+	},
+	transactionCode: {
+		type: Number,
+		require: true
 	},
 	vendor: {
-		type: String,
+		type: String
+	},
+	quantity: {
+		type: Number,
+		require: true
 	},
 	date: {
 		type: Date,
-		default: Date.now,
-	},
+		default: Date.now
+	}
 });
 
 const Purchase = mongoose.model('purchases', PurchaseSchema);

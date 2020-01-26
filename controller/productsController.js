@@ -1,6 +1,8 @@
 // load Product model
 const Product = require('../models/Product');
-
+const purchasesController = require('./purchasesController');
+const sellsController = require('./sellsController');
+const { generateTransactionCode } = require('../helpers');
 // get all the Product
 const get = async (req, res) => {
   try {
@@ -22,15 +24,18 @@ const store = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.quantity = parseInt(req.body.quantity);
     const newData = await Product.create(req.body);
-    data = {
-      id: newData._id,
+    const data = {
+      transactionCode: generateTransactionCode(),
+      product: newData._id,
       vendor: req.body.vendor,
       quantity: req.body.quantity
     };
-    await history.storeHistory(data);
+    const purchaseHistory = await purchasesController.store(data);
+    console.log(newData);
     res.status(201).json({
       status: 'success',
-      data: newData
+      data: newData,
+      purchaseHistory
     });
   } catch (err) {
     res.status(500).json({
@@ -56,6 +61,25 @@ const show = async (req, res) => {
   }
 };
 
+// get single Product
+const search = async (req, res) => {
+  console.log(req.params.tag);
+  try {
+    const data = await Product.find({
+      name: { $regex: req.params.tag, $options: 'i' }
+    });
+    res.status(200).json({
+      message: 'success',
+      data
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'failed',
+      err
+    });
+  }
+};
+
 //sell the product and create the sell history
 const sell = async (req, res) => {
   try {
@@ -69,12 +93,12 @@ const sell = async (req, res) => {
         runValidators: true
       }
     );
-    data = {
+    const data = {
       id: available[0]._id,
       quantity: req.body.quantity,
       price: req.body.quantity * available[0].price
     };
-    await history.sellHistory(data);
+    await sellsController.sellHistory(data);
     res.status(200).json({
       status: 'success',
       newUpdate
@@ -92,13 +116,23 @@ const update = async (req, res) => {
     console.log(req.body);
     req.body.price = parseInt(req.body.price);
     req.body.quantity = parseInt(req.body.quantity);
+    const { newQuantity } = req.body;
+    delete req.body.newQuantity;
     const newUpdate = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
-    res.status(200).json({
-      message: 'success',
-      data: newUpdate
+    const data = {
+      transactionCode: generateTransactionCode(),
+      product: newUpdate._id,
+      vendor: req.body.vendor,
+      quantity: newQuantity
+    };
+    const purchaseHistory = await purchasesController.store(data);
+    res.status(201).json({
+      status: 'success',
+      data: newUpdate,
+      purchaseHistory
     });
   } catch (err) {
     res.status(500).json({
@@ -135,10 +169,10 @@ const search = async (req, res) => {
 const productsController = {
   get,
   store,
-  search,
   sell,
   show,
   update,
+  search,
   destroy
 };
 
