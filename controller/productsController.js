@@ -150,22 +150,25 @@ const destroy = async (req, res) => {
     console.log(err);
   }
 };
-const search = async (req, res) => {
-  try {
-    const data = await Product.find({
-      $or: [{ name: req.body.name }, { productCode: req.body.productCode }]
-    });
-    res.status(200).json({
-      massage: 'success',
-      data
-    });
-  } catch (err) {
-    res.status(404).json({
-      massage: 'fail',
-      err: err.message
-    });
-  }
-};
+
+//desclared for some reason dont know why
+
+// const search = async (req, res) => {
+//   try {
+//     const data = await Product.find({
+//       $or: [{ name: req.body.name }, { productCode: req.body.productCode }]
+//     });
+//     res.status(200).json({
+//       massage: 'success',
+//       data
+//     });
+//   } catch (err) {
+//     res.status(404).json({
+//       massage: 'fail',
+//       err: err.message
+//     });
+//   }
+// };
 const productsController = {
   get,
   store,
